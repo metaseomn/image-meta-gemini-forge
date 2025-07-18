@@ -632,237 +632,191 @@ const MetadataGenerator = () => {
                     <p>No images uploaded yet</p>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto">
-                    {imageBatch.map((image) => (
-                      <div key={image.id} className="border border-border rounded-lg p-3 space-y-3">
-                        <div className="relative">
-                          <img
-                            src={image.preview}
-                            alt={image.file.name}
-                            className="w-full h-24 object-cover rounded"
-                          />
-                          <Button
-                            onClick={() => removeImage(image.id)}
-                            variant="destructive"
-                            size="sm"
-                            className="absolute top-1 right-1 w-6 h-6 p-0"
-                          >
-                            <X className="w-3 h-3" />
-                          </Button>
-                          {image.isProcessing && (
-                            <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded">
-                              <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                            </div>
-                          )}
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <p className="text-xs font-medium truncate">{image.file.name}</p>
-                          
-                          {image.metadata && (
-                            <div className="space-y-3 p-2 bg-accent/10 rounded-lg">
-                              {/* All Keywords Section */}
-                              <div>
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-xs font-semibold text-primary">All Keywords</span>
-                                  <Badge variant="outline" className="text-xs px-1 py-0">
-                                    {image.metadata.keywords.length} keywords
-                                  </Badge>
-                                </div>
-                                <div className="flex flex-wrap gap-1">
-                                  {image.metadata.keywords.map((keyword, idx) => (
-                                    <span 
-                                      key={idx} 
-                                      className="inline-block px-2 py-1 text-xs bg-primary/10 text-primary border border-primary/20 rounded-full hover:bg-primary/20 transition-colors cursor-pointer"
-                                      onClick={() => copyToClipboard(keyword)}
-                                    >
-                                      {keyword}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
+                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-h-[80vh] overflow-y-auto pr-2">
+                     {imageBatch.map((image) => (
+                       <div key={image.id} className="border border-border rounded-lg overflow-hidden bg-card">
+                         {/* Improved Image Section */}
+                         <div className="relative aspect-video md:aspect-[4/3] lg:aspect-video group">
+                           <img
+                             src={image.preview}
+                             alt={image.file.name}
+                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                           />
+                           <Button
+                             onClick={() => removeImage(image.id)}
+                             variant="destructive"
+                             size="sm"
+                             className="absolute top-3 right-3 w-8 h-8 p-0 opacity-90 hover:opacity-100 transition-all shadow-lg"
+                           >
+                             <X className="w-4 h-4" />
+                           </Button>
+                           {image.isProcessing && (
+                             <div className="absolute inset-0 bg-black/60 flex items-center justify-center backdrop-blur-sm">
+                               <div className="w-10 h-10 border-3 border-white border-t-transparent rounded-full animate-spin" />
+                             </div>
+                           )}
+                           {/* Image Overlay Info */}
+                           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                             <p className="text-white text-sm font-medium truncate">{image.file.name}</p>
+                           </div>
+                         </div>
+                         
+                         {/* Complete Metadata Section */}
+                         {image.metadata && (
+                           <div className="p-4 space-y-4">
+                             
+                             {/* Title Section */}
+                             <div className="space-y-2">
+                               <div className="flex items-center justify-between">
+                                 <span className="text-sm font-semibold text-primary">Title</span>
+                                 <Button
+                                   onClick={() => copyToClipboard(image.metadata!.title)}
+                                   variant="ghost"
+                                   size="sm"
+                                   className="h-6 w-6 p-0 hover:bg-primary/10"
+                                 >
+                                   <Copy className="w-3 h-3" />
+                                 </Button>
+                               </div>
+                               <div className="p-3 bg-accent/20 rounded-lg border">
+                                 <p className="text-sm leading-relaxed">{image.metadata.title}</p>
+                               </div>
+                             </div>
 
-                              {/* Action Buttons */}
-                              <div className="flex gap-1">
-                                <Button
-                                  onClick={() => copyToClipboard(image.metadata!.keywords.join(', '))}
-                                  variant="outline"
-                                  size="sm"
-                                  className="text-xs h-7 px-2"
-                                >
-                                  <Copy className="w-3 h-3 mr-1" />
-                                  Copy All Keywords
-                                </Button>
-                                <Dialog>
-                                  <DialogTrigger asChild>
-                                    <Button
-                                      variant="outline"
-                                      size="sm"
-                                      className="text-xs h-7 px-2 flex-1 sm:flex-none sm:min-w-[80px] md:min-w-[90px]"
-                                    >
-                                      <Eye className="w-3 h-3 mr-1" />
-                                      <span className="hidden xs:inline">View All</span>
-                                      <span className="xs:hidden">View</span>
-                                    </Button>
-                                  </DialogTrigger>
-                                  <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
-                                    <DialogHeader>
-                                      <DialogTitle className="flex items-center gap-2">
-                                        <img src={image.preview} alt="" className="w-8 h-8 object-cover rounded" />
-                                        Complete Metadata - {image.file.name}
-                                      </DialogTitle>
-                                    </DialogHeader>
-                                    
-                                    <div className="space-y-6 py-4">
-                                      {/* Image Preview */}
-                                      <div className="flex justify-center">
-                                        <img 
-                                          src={image.preview} 
-                                          alt={image.metadata!.title}
-                                          className="max-w-md max-h-64 object-contain rounded-lg border"
-                                        />
-                                      </div>
+                             {/* Description Section */}
+                             <div className="space-y-2">
+                               <div className="flex items-center justify-between">
+                                 <span className="text-sm font-semibold text-primary">Description</span>
+                                 <Button
+                                   onClick={() => copyToClipboard(image.metadata!.description)}
+                                   variant="ghost"
+                                   size="sm"
+                                   className="h-6 w-6 p-0 hover:bg-primary/10"
+                                 >
+                                   <Copy className="w-3 h-3" />
+                                 </Button>
+                               </div>
+                               <div className="p-3 bg-accent/20 rounded-lg border">
+                                 <p className="text-sm leading-relaxed">{image.metadata.description}</p>
+                               </div>
+                             </div>
 
-                                      {/* Title Section */}
-                                      <div className="space-y-2">
-                                        <Label className="text-sm font-semibold">Title</Label>
-                                        <div className="flex gap-2">
-                                          <div className="flex-1 p-3 bg-accent/20 rounded-lg border">
-                                            <p className="text-sm font-medium">{image.metadata!.title}</p>
-                                          </div>
-                                          <Button
-                                            onClick={() => copyToClipboard(image.metadata!.title)}
-                                            variant="outline"
-                                            size="sm"
-                                          >
-                                            <Copy className="w-4 h-4" />
-                                          </Button>
-                                        </div>
-                                      </div>
+                             {/* Keywords Section */}
+                             <div className="space-y-2">
+                               <div className="flex items-center justify-between">
+                                 <span className="text-sm font-semibold text-primary">Keywords</span>
+                                 <div className="flex items-center gap-2">
+                                   <Badge variant="outline" className="text-xs px-2 py-1">
+                                     {image.metadata.keywords.length}
+                                   </Badge>
+                                   <Button
+                                     onClick={() => copyToClipboard(image.metadata!.keywords.join(', '))}
+                                     variant="ghost"
+                                     size="sm"
+                                     className="h-6 w-6 p-0 hover:bg-primary/10"
+                                   >
+                                     <Copy className="w-3 h-3" />
+                                   </Button>
+                                 </div>
+                               </div>
+                               <div className="p-3 bg-primary/5 rounded-lg border border-primary/20 max-h-32 overflow-y-auto">
+                                 <div className="flex flex-wrap gap-2">
+                                   {image.metadata.keywords.map((keyword, idx) => (
+                                     <span 
+                                       key={idx}
+                                       className="inline-flex items-center px-3 py-1.5 bg-primary/10 text-primary text-xs border border-primary/30 rounded-full hover:bg-primary/20 transition-colors cursor-pointer"
+                                       onClick={() => copyToClipboard(keyword)}
+                                     >
+                                       {keyword}
+                                       <Copy className="w-3 h-3 ml-1.5 opacity-60" />
+                                     </span>
+                                   ))}
+                                 </div>
+                               </div>
+                             </div>
 
-                                      {/* Description Section */}
-                                      <div className="space-y-2">
-                                        <Label className="text-sm font-semibold">Description</Label>
-                                        <div className="flex gap-2">
-                                          <div className="flex-1 p-3 bg-accent/20 rounded-lg border">
-                                            <p className="text-sm">{image.metadata!.description}</p>
-                                          </div>
-                                          <Button
-                                            onClick={() => copyToClipboard(image.metadata!.description)}
-                                            variant="outline"
-                                            size="sm"
-                                          >
-                                            <Copy className="w-4 h-4" />
-                                          </Button>
-                                        </div>
-                                      </div>
+                             {/* Alt Text & Category Grid */}
+                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                               <div className="space-y-2">
+                                 <div className="flex items-center justify-between">
+                                   <span className="text-sm font-semibold text-primary">Alt Text</span>
+                                   <Button
+                                     onClick={() => copyToClipboard(image.metadata!.altText)}
+                                     variant="ghost"
+                                     size="sm"
+                                     className="h-6 w-6 p-0 hover:bg-primary/10"
+                                   >
+                                     <Copy className="w-3 h-3" />
+                                   </Button>
+                                 </div>
+                                 <div className="p-3 bg-accent/20 rounded-lg border">
+                                   <p className="text-sm leading-relaxed">{image.metadata.altText}</p>
+                                 </div>
+                               </div>
 
-                                      {/* All Keywords Section */}
-                                      <div className="space-y-3">
-                                        <div className="flex items-center justify-between">
-                                          <Label className="text-sm font-semibold">All Keywords ({image.metadata!.keywords.length})</Label>
-                                          <Button
-                                            onClick={() => copyToClipboard(image.metadata!.keywords.join(', '))}
-                                            variant="outline"
-                                            size="sm"
-                                          >
-                                            <Copy className="w-4 h-4 mr-2" />
-                                            Copy All
-                                          </Button>
-                                        </div>
-                                        <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
-                                          <div className="flex flex-wrap gap-2">
-                                            {image.metadata!.keywords.map((keyword, idx) => (
-                                              <span 
-                                                key={idx}
-                                                className="inline-flex items-center px-3 py-1.5 bg-primary/10 text-primary text-sm border border-primary/30 rounded-full hover:bg-primary/20 transition-colors cursor-pointer"
-                                                onClick={() => copyToClipboard(keyword)}
-                                              >
-                                                {keyword}
-                                                <Copy className="w-3 h-3 ml-1 opacity-50" />
-                                              </span>
-                                            ))}
-                                          </div>
-                                        </div>
-                                      </div>
+                               <div className="space-y-2">
+                                 <div className="flex items-center justify-between">
+                                   <span className="text-sm font-semibold text-primary">Category</span>
+                                   <Button
+                                     onClick={() => copyToClipboard(image.metadata!.category)}
+                                     variant="ghost"
+                                     size="sm"
+                                     className="h-6 w-6 p-0 hover:bg-primary/10"
+                                   >
+                                     <Copy className="w-3 h-3" />
+                                   </Button>
+                                 </div>
+                                 <div className="flex items-center">
+                                   <Badge variant="default" className="text-sm py-2 px-4 font-medium">
+                                     {image.metadata.category}
+                                   </Badge>
+                                 </div>
+                               </div>
+                             </div>
 
-                                      {/* Alt Text & Category */}
-                                      <div className="grid md:grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                          <Label className="text-sm font-semibold">Alt Text</Label>
-                                          <div className="flex gap-2">
-                                            <div className="flex-1 p-3 bg-accent/20 rounded-lg border">
-                                              <p className="text-sm">{image.metadata!.altText}</p>
-                                            </div>
-                                            <Button
-                                              onClick={() => copyToClipboard(image.metadata!.altText)}
-                                              variant="outline"
-                                              size="sm"
-                                            >
-                                              <Copy className="w-4 h-4" />
-                                            </Button>
-                                          </div>
-                                        </div>
-
-                                        <div className="space-y-2">
-                                          <Label className="text-sm font-semibold">Category</Label>
-                                          <div className="flex items-center gap-2">
-                                            <Badge variant="default" className="text-sm py-2 px-4">
-                                              {image.metadata!.category}
-                                            </Badge>
-                                            <Button
-                                              onClick={() => copyToClipboard(image.metadata!.category)}
-                                              variant="outline"
-                                              size="sm"
-                                            >
-                                              <Copy className="w-4 h-4" />
-                                            </Button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </DialogContent>
-                                </Dialog>
-                              </div>
-
-                              {/* Regenerate Button */}
-                              <div className="pt-2 border-t border-border/50">
-                                <Button
-                                  onClick={() => regenerateMetadata(image.id)}
-                                  disabled={image.isProcessing}
-                                  variant="outline"
-                                  size="sm"
-                                  className="text-xs h-7 px-2 w-full"
-                                >
-                                  {image.isProcessing ? (
-                                    <>
-                                      <div className="w-3 h-3 mr-1 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                                      Regenerating...
-                                    </>
-                                  ) : (
-                                    <>
-                                      <RotateCcw className="w-3 h-3 mr-1" />
-                                      Regenerate
-                                    </>
-                                  )}
-                                </Button>
-                              </div>
-
-                              {/* Title & Category */}
-                              <div className="pt-2 border-t border-border/50">
-                                <div className="text-xs text-muted-foreground mb-1">
-                                  <span className="font-medium">Title:</span> {image.metadata.title.substring(0, 30)}...
-                                </div>
-                                <Badge variant="secondary" className="text-xs">
-                                  {image.metadata.category}
-                                </Badge>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                             {/* Action Buttons */}
+                             <div className="flex gap-2 pt-4 border-t border-border/50">
+                               <Button
+                                 onClick={() => copyToClipboard(image.metadata!.keywords.join(', '))}
+                                 variant="outline"
+                                 size="sm"
+                                 className="text-sm h-9 px-4 flex-1"
+                               >
+                                 <Copy className="w-4 h-4 mr-2" />
+                                 Copy All Keywords
+                               </Button>
+                               <Button
+                                 onClick={() => regenerateMetadata(image.id)}
+                                 disabled={image.isProcessing}
+                                 variant="outline"
+                                 size="sm"
+                                 className="text-sm h-9 px-4"
+                               >
+                                 {image.isProcessing ? (
+                                   <>
+                                     <div className="w-4 h-4 mr-2 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                                     Regenerating...
+                                   </>
+                                 ) : (
+                                   <>
+                                     <RotateCcw className="w-4 h-4 mr-2" />
+                                     Regenerate
+                                   </>
+                                 )}
+                               </Button>
+                             </div>
+                           </div>
+                         )}
+                         
+                         {/* Processing State for Images Without Metadata */}
+                         {!image.metadata && !image.isProcessing && (
+                           <div className="p-4">
+                             <p className="text-muted-foreground text-sm text-center">Ready for processing</p>
+                           </div>
+                         )}
+                       </div>
+                     ))}
+                   </div>
                 )}
               </CardContent>
             </Card>
