@@ -218,27 +218,42 @@ const MetadataGenerator = () => {
               contents: [{
                 parts: [
                   {
-                    text: `You are a professional stock photo metadata expert. Analyze this image and generate metadata optimized for iStock, Adobe Stock, Shutterstock, and Freepik.
+                    text: `You are a professional stock photo metadata expert specializing in Bengali market optimization. Analyze this image and generate metadata optimized for iStock, Adobe Stock, Shutterstock, and Freepik with focus on relevant, multi-word keywords.
 
-                    STEP 1: Create title and description first
-                    STEP 2: Extract key concepts from title and description 
-                    STEP 3: Build keywords ONLY from those concepts
+                    STEP 1: Identify visual elements and create title/description
+                    STEP 2: Extract keywords using the 7-category system below
+                    STEP 3: Prioritize multi-word keywords over single words
 
-                    KEYWORD CONSISTENCY RULE:
-                    Every keyword MUST be directly derived from words or concepts mentioned in the title or description. If a concept isn't in the title/description, it cannot be a keyword.
+                    KEYWORD GENERATION CATEGORIES (Generate 2-4 keywords from each category):
 
-                    PROCESS:
-                    1. Write a specific title describing the main subject and action
-                    2. Write a description that expands on the title with context and details  
-                    3. List all key concepts from title + description
-                    4. Create keywords using ONLY these concepts and their logical extensions
-                    
+                    🔸 1. VISUAL OBJECTS (দৃশ্যমান বস্তু):
+                    Examples: business logo, camera lens, green leaf, mountain peak, letter design, circular shape, human hand, mobile phone, office desk, coffee cup, etc.
+
+                    🔸 2. THEME-BASED TERMS (বিষয়ভিত্তিক):
+                    Examples: business concept, fitness lifestyle, nature photography, food preparation, education technology, medical care, wedding ceremony, travel destination, etc.
+
+                    🔸 3. STYLE & DESIGN TYPE (স্টাইল ও ডিজাইন):
+                    Examples: modern design, minimalist style, flat illustration, 3d rendering, abstract art, vintage look, clean layout, grunge texture, realistic photo, etc.
+
+                    🔸 4. COLOR & BACKGROUND (রঙ ও ব্যাকগ্রাউন্ড):
+                    Examples: colorful design, black background, white backdrop, blue theme, golden color, transparent background, gradient effect, bright colors, etc.
+
+                    🔸 5. FORMAT & TYPE (ফরম্যাট ও ধরন):
+                    Examples: vector illustration, icon design, template layout, background pattern, flyer design, logo concept, banner template, poster design, etc.
+
+                    🔸 6. USAGE & PURPOSE (ব্যবহার ও উদ্দেশ্য):
+                    Examples: branding material, print design, web graphics, UI design, UX element, mobile app, presentation slide, social media post, marketing material, etc.
+
+                    🔸 7. SHAPE & FORM (আকৃতি ও ফর্ম):
+                    Examples: circular design, square format, triangular shape, curved lines, spiral pattern, geometric shape, abstract form, linear design, etc.
+
                     KEYWORD RULES:
-                    - Extract 15-20 keywords directly from title/description concepts
-                    - Include main subject, action, setting, mood, style mentioned in title/description
-                    - Add related commercial terms that connect to your title/description theme
-                    - NO generic words that aren't connected to your specific title/description
-                    - Each keyword must trace back to something in title or description
+                    - Generate 18-22 keywords total (2-4 from each category)
+                    - Prioritize multi-word keywords (70% multi-word, 30% single word)
+                    - Use commercial terms that buyers search for
+                    - Include specific visual elements you see
+                    - Add style descriptors and usage contexts
+                    - Avoid generic words like "image", "photo", "picture"
                     
                     FORBIDDEN DUPLICATE CONCEPTS:
                     - work, working, worker, workplace, workforce
@@ -250,21 +265,19 @@ const MetadataGenerator = () => {
                     - people, person, individuals, humans, personnel
                     - modern, contemporary, current, new, recent
                     
-                    EXAMPLE FLOW:
-                    Title: "Architect reviewing blueprints in modern office"
-                    Description: "Professional architect examining construction plans at desk with computer and drafting tools"
-                    Key concepts: architect, blueprints, office, reviewing, construction, plans, desk, computer, drafting, tools
-                    Keywords derived from these concepts: architect, blueprints, construction-plans, office-desk, drafting-tools, computer-workstation, building-design, etc.
+                    EXAMPLE GOOD KEYWORDS:
+                    Instead of: "business, man, success, work"
+                    Use: "business meeting", "professional businessman", "corporate success", "office workspace"
                     
                     Generate JSON with:
-                    - title: Specific SEO title (max 60 chars)
-                    - description: Detailed description that expands on title (max 150 chars)
-                    - keywords: 15-20 keywords derived from title/description concepts only
-                    - topTenKeywords: Best 10 from main list
-                    - altText: Accessibility description  
-                    - category: Main category
+                    - title: Specific SEO title describing main subject and action (max 60 chars)
+                    - description: Detailed description expanding on title (max 150 chars)
+                    - keywords: 18-22 relevant multi-word keywords following the 7 categories
+                    - topTenKeywords: Best 10 commercial keywords from the main list
+                    - altText: Accessibility description for screen readers
+                    - category: Main stock photo category
                     
-                    CRITICAL: Every keyword must connect to something mentioned in your title or description.`
+                    CRITICAL: Focus on what buyers actually search for. Use commercial, descriptive, multi-word keywords that match real search behavior.`
                   },
                   {
                     inlineData: {
