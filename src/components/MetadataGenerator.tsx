@@ -218,66 +218,72 @@ const MetadataGenerator = () => {
               contents: [{
                 parts: [
                   {
-                    text: `You are a professional stock photo metadata expert specializing in Bengali market optimization. Analyze this image and generate metadata optimized for iStock, Adobe Stock, Shutterstock, and Freepik with focus on relevant, multi-word keywords.
+                    text: `You are a professional stock photo metadata expert specializing in Bengali market optimization. Analyze this image and create CONSISTENT metadata where title, description, and keywords tell the same story without repetition.
 
-                    STEP 1: Identify visual elements and create title/description
-                    STEP 2: Extract keywords using the 7-category system below
-                    STEP 3: Prioritize multi-word keywords over single words
+                    CONSISTENCY REQUIREMENTS:
+                    1. Title should focus on ONE main subject/action
+                    2. Description should expand the title naturally (different words, same meaning)
+                    3. Keywords should support title/description with RELATED but NOT repeated terms
+                    4. NO word should appear in title, description AND keywords
 
-                    KEYWORD GENERATION CATEGORIES (Generate 2-4 keywords from each category):
+                    WORKFLOW:
+                    STEP 1: Identify the MAIN subject and action in the image
+                    STEP 2: Create title using specific terms
+                    STEP 3: Create description using DIFFERENT words that expand the title concept
+                    STEP 4: Create keywords that support the concept WITHOUT repeating title/description words
 
-                    🔸 1. VISUAL OBJECTS (দৃশ্যমান বস্তু):
-                    Examples: business logo, camera lens, green leaf, mountain peak, letter design, circular shape, human hand, mobile phone, office desk, coffee cup, etc.
+                    KEYWORD GENERATION CATEGORIES (Generate 2-3 keywords from each relevant category):
 
-                    🔸 2. THEME-BASED TERMS (বিষয়ভিত্তিক):
-                    Examples: business concept, fitness lifestyle, nature photography, food preparation, education technology, medical care, wedding ceremony, travel destination, etc.
+                    🔸 1. VISUAL OBJECTS (যা দেখা যাচ্ছে):
+                    Only include objects actually visible in the image
+                    Examples: camera equipment, green foliage, mountain landscape, letter symbol, circular element, human gesture, mobile device, workspace setup, coffee mug, etc.
 
-                    🔸 3. STYLE & DESIGN TYPE (স্টাইল ও ডিজাইন):
-                    Examples: modern design, minimalist style, flat illustration, 3d rendering, abstract art, vintage look, clean layout, grunge texture, realistic photo, etc.
+                    🔸 2. THEME CONCEPTS (মূল বিষয়):
+                    Main concept without repeating title words
+                    Examples: business strategy, fitness routine, nature scene, food culture, educational content, healthcare service, celebration event, travel experience, etc.
 
-                    🔸 4. COLOR & BACKGROUND (রঙ ও ব্যাকগ্রাউন্ড):
-                    Examples: colorful design, black background, white backdrop, blue theme, golden color, transparent background, gradient effect, bright colors, etc.
+                    🔸 3. STYLE ATTRIBUTES (স্টাইল বৈশিষ্ট্য):
+                    Visual style without generic terms
+                    Examples: minimalist approach, flat graphic, 3d visualization, artistic rendering, vintage aesthetic, clean composition, textured surface, photorealistic image, etc.
 
-                    🔸 5. FORMAT & TYPE (ফরম্যাট ও ধরন):
-                    Examples: vector illustration, icon design, template layout, background pattern, flyer design, logo concept, banner template, poster design, etc.
+                    🔸 4. COLOR & MOOD (রঙ ও মেজাজ):
+                    Specific colors and emotional tone
+                    Examples: vibrant palette, monochrome scheme, warm lighting, cool atmosphere, golden tones, neutral background, gradient blend, high contrast, etc.
 
-                    🔸 6. USAGE & PURPOSE (ব্যবহার ও উদ্দেশ্য):
-                    Examples: branding material, print design, web graphics, UI design, UX element, mobile app, presentation slide, social media post, marketing material, etc.
+                    🔸 5. FORMAT & MEDIUM (ফরম্যাট ও মাধ্যম):
+                    Technical format details
+                    Examples: vector artwork, digital illustration, background texture, pattern design, logo template, banner format, poster layout, social graphic, etc.
 
-                    🔸 7. SHAPE & FORM (আকৃতি ও ফর্ম):
-                    Examples: circular design, square format, triangular shape, curved lines, spiral pattern, geometric shape, abstract form, linear design, etc.
+                    🔸 6. COMMERCIAL USE (বাণিজ্যিক ব্যবহার):
+                    How buyers will use it
+                    Examples: marketing campaign, brand identity, web design, print advertising, presentation slide, social media, mobile application, user interface, etc.
 
-                    KEYWORD RULES:
-                    - Generate 18-22 keywords total (2-4 from each category)
-                    - Prioritize multi-word keywords (70% multi-word, 30% single word)
-                    - Use commercial terms that buyers search for
-                    - Include specific visual elements you see
-                    - Add style descriptors and usage contexts
-                    - Avoid generic words like "image", "photo", "picture"
-                    
-                    FORBIDDEN DUPLICATE CONCEPTS:
-                    - work, working, worker, workplace, workforce
-                    - business, corporate, professional, commercial, enterprise  
-                    - happy, joyful, cheerful, pleased, delighted, smiling
-                    - success, successful, achievement, accomplish, winning
-                    - team, teamwork, collaboration, cooperative, group
-                    - technology, tech, digital, technological
-                    - people, person, individuals, humans, personnel
-                    - modern, contemporary, current, new, recent
-                    
-                    EXAMPLE GOOD KEYWORDS:
-                    Instead of: "business, man, success, work"
-                    Use: "business meeting", "professional businessman", "corporate success", "office workspace"
-                    
+                    🔸 7. SPECIFIC DETAILS (নির্দিষ্ট বিবরণ):
+                    Unique elements visible
+                    Examples: geometric pattern, curved line, spiral motion, abstract form, linear structure, organic shape, angular design, flowing movement, etc.
+
+                    STRICT ANTI-STUFFING RULES:
+                    ❌ NEVER repeat exact words from title in description or keywords
+                    ❌ NEVER use synonyms of title words in keywords (if title says "business", don't use "corporate", "professional", "commercial")
+                    ❌ NEVER use similar concepts (avoid: work/working/worker, happy/joyful/smiling, success/achievement/accomplish)
+                    ❌ NEVER use generic filler words like "image", "photo", "picture", "illustration" in keywords
+                    ❌ NEVER exceed 18 keywords total (quality over quantity)
+
+                    ✅ CONSISTENCY EXAMPLE:
+                    Image: Person using laptop in cafe
+                    Title: "Remote worker typing on laptop in coffee shop"
+                    Description: "Freelancer focusing on computer tasks at cozy cafe table"
+                    Keywords: "digital nomad", "cafe environment", "technology lifestyle", "productivity session", "modern workspace", "internet connection", "beverage break", "concentration mode", "flexible employment", "urban setting", "afternoon lighting", "casual atmosphere", "startup culture", "creative process", "independent contractor"
+
                     Generate JSON with:
-                    - title: Specific SEO title describing main subject and action (max 60 chars)
-                    - description: Detailed description expanding on title (max 150 chars)
-                    - keywords: 18-22 relevant multi-word keywords following the 7 categories
+                    - title: Specific, action-focused title (max 60 chars)
+                    - description: Expands title using DIFFERENT vocabulary (max 150 chars)  
+                    - keywords: 12-18 supporting terms that DON'T repeat title/description words
                     - topTenKeywords: Best 10 commercial keywords from the main list
                     - altText: Accessibility description for screen readers
                     - category: Main stock photo category
                     
-                    CRITICAL: Focus on what buyers actually search for. Use commercial, descriptive, multi-word keywords that match real search behavior.`
+                    CRITICAL: Each element must complement others without repetition. Think like a buyer - they search with different terms than what's in titles.`
                   },
                   {
                     inlineData: {
