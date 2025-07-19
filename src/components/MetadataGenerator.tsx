@@ -218,72 +218,72 @@ const MetadataGenerator = () => {
               contents: [{
                 parts: [
                   {
-                    text: `You are a professional stock photo metadata expert specializing in Bengali market optimization. Analyze this image and create CONSISTENT metadata where title, description, and keywords tell the same story without repetition.
+                    text: `You are a professional stock photo metadata expert. Create CONSISTENT metadata where title, description, and keywords are related but use DIFFERENT vocabulary.
 
-                    CONSISTENCY REQUIREMENTS:
-                    1. Title should focus on ONE main subject/action
-                    2. Description should expand the title naturally (different words, same meaning)
-                    3. Keywords should support title/description with RELATED but NOT repeated terms
-                    4. NO word should appear in title, description AND keywords
+                    CRITICAL RULES:
+                    1. Title: Focus on main subject + action (use specific words)
+                    2. Description: Expand title concept using COMPLETELY DIFFERENT words
+                    3. Keywords: Support the concept using UNIQUE words NOT found in title or description
+                    4. ZERO word repetition between title, description, and keywords
 
-                    WORKFLOW:
-                    STEP 1: Identify the MAIN subject and action in the image
-                    STEP 2: Create title using specific terms
-                    STEP 3: Create description using DIFFERENT words that expand the title concept
-                    STEP 4: Create keywords that support the concept WITHOUT repeating title/description words
+                    STEP-BY-STEP PROCESS:
+                    1. Identify main subject and action in image
+                    2. Write title with specific terms
+                    3. Write description expanding the concept with DIFFERENT vocabulary  
+                    4. Generate keywords using the 7 categories below with words NOT used in title/description
 
-                    KEYWORD GENERATION CATEGORIES (Generate 2-3 keywords from each relevant category):
+                    KEYWORD CATEGORIES (Generate 2-3 from each relevant category):
 
                     🔸 1. VISUAL OBJECTS (দৃশ্যমান বস্তু):
-                    Specific objects you can actually see in the image
-                    Examples: logo, camera, leaf, mountain, letter a, circle, hand, phone, desk, cup, computer, car, building, tree, flower, etc.
+                    Specific objects you can actually see
+                    Examples: logo, camera, leaf, mountain, letter, circle, hand, phone, desk, cup, computer, car, building, tree, flower
 
                     🔸 2. THEME-BASED (বিষয়ভিত্তিক):
                     Main subject or concept theme
-                    Examples: business, fitness, nature, food, education, medical, wedding, technology, travel, family, sport, art, music, etc.
+                    Examples: business, fitness, nature, food, education, medical, wedding, technology, travel, family, sport, art, music
 
                     🔸 3. STYLE & DESIGN TYPE (স্টাইল ও ডিজাইন):
                     Visual style and design approach
-                    Examples: modern, minimalist, flat, 3d, abstract, vintage, clean, grunge, realistic, artistic, professional, creative, etc.
+                    Examples: modern, minimalist, flat, 3d, abstract, vintage, clean, grunge, realistic, artistic, professional, creative
 
                     🔸 4. COLOR OR BACKGROUND (রঙ ও ব্যাকগ্রাউন্ড):
                     Dominant colors and background types
-                    Examples: colorful, black background, white background, blue, gold, transparent, gradient, bright, dark, monochrome, etc.
+                    Examples: colorful, black background, white background, blue, gold, transparent, gradient, bright, dark, monochrome
 
                     🔸 5. FORMAT OR TYPE (ফরম্যাট ও ধরন):
                     Technical format and media type
-                    Examples: vector, illustration, icon, template, background, pattern, flyer, logo design, poster, banner, etc.
+                    Examples: vector, illustration, icon, template, background, pattern, flyer, logo design, poster, banner
 
                     🔸 6. USE OR PURPOSE (ব্যবহার ও উদ্দেশ্য):
                     How and where it will be used
-                    Examples: branding, print, web, UI, UX, mobile, app, presentation, social media, marketing, advertising, etc.
+                    Examples: branding, print, web, UI, UX, mobile, app, presentation, social media, marketing, advertising
 
                     🔸 7. SHAPE OR FORM (আকৃতি ও ফর্ম):
                     Geometric shapes and forms visible
-                    Examples: circle, square, triangle, line, curve, spiral, geometric, abstract shape, round, angular, organic, etc.
+                    Examples: circle, square, triangle, line, curve, spiral, geometric, abstract shape, round, angular, organic
 
-                    STRICT ANTI-STUFFING RULES:
-                    ❌ NEVER repeat exact words from title in description or keywords
-                    ❌ NEVER use synonyms of title words in keywords (if title says "business", don't use "corporate", "professional", "commercial")
-                    ❌ NEVER use similar concepts (avoid: work/working/worker, happy/joyful/smiling, success/achievement/accomplish)
-                    ❌ NEVER use generic filler words like "image", "photo", "picture", "illustration" in keywords
-                    ❌ NEVER exceed 18 keywords total (quality over quantity)
+                    FORBIDDEN PRACTICES:
+                    ❌ Using any word from title in description or keywords
+                    ❌ Using any word from description in keywords
+                    ❌ Using synonyms of title/description words in keywords
+                    ❌ Generic words: image, photo, picture, illustration
+                    ❌ Repetitive concepts: work/working/worker, business/corporate/professional
 
-                    ✅ CONSISTENCY EXAMPLE:
-                    Image: Person using laptop in cafe
-                    Title: "Remote worker typing on laptop in coffee shop"
-                    Description: "Freelancer focusing on computer tasks at cozy cafe table"
-                    Keywords: "digital nomad", "cafe environment", "technology lifestyle", "productivity session", "modern workspace", "internet connection", "beverage break", "concentration mode", "flexible employment", "urban setting", "afternoon lighting", "casual atmosphere", "startup culture", "creative process", "independent contractor"
+                    EXAMPLE OF CORRECT APPROACH:
+                    Image: Person using laptop in coffee shop
+                    Title: "Remote worker typing on laptop"
+                    Description: "Freelancer focusing at cafe table with computer"
+                    Keywords: "digital nomad", "coffee house", "technology lifestyle", "productivity", "internet connection", "beverage environment", "modern workspace", "flexible employment", "urban setting", "casual atmosphere"
 
-                    Generate JSON with:
-                    - title: Specific, action-focused title (max 60 chars)
-                    - description: Expands title using DIFFERENT vocabulary (max 150 chars)  
-                    - keywords: 12-18 supporting terms that DON'T repeat title/description words
-                    - topTenKeywords: Best 10 commercial keywords from the main list
-                    - altText: Accessibility description for screen readers
-                    - category: Main stock photo category
-                    
-                    CRITICAL: Each element must complement others without repetition. Think like a buyer - they search with different terms than what's in titles.`
+                    GENERATE EXACTLY:
+                    - title: Main subject + action (max 60 chars)
+                    - description: Different words expanding the concept (max 150 chars)
+                    - keywords: 15-18 unique supporting terms from 7 categories
+                    - topTenKeywords: Best 10 commercial keywords
+                    - altText: Screen reader description
+                    - category: Stock photo category
+
+                    REMEMBER: Each section must use completely different vocabulary while staying related to the same visual concept.`
                   },
                   {
                     inlineData: {
