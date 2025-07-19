@@ -234,33 +234,33 @@ const MetadataGenerator = () => {
 
                     KEYWORD GENERATION CATEGORIES (Generate 2-3 keywords from each relevant category):
 
-                    🔸 1. VISUAL OBJECTS (যা দেখা যাচ্ছে):
-                    Only include objects actually visible in the image
-                    Examples: camera equipment, green foliage, mountain landscape, letter symbol, circular element, human gesture, mobile device, workspace setup, coffee mug, etc.
+                    🔸 1. VISUAL OBJECTS (দৃশ্যমান বস্তু):
+                    Specific objects you can actually see in the image
+                    Examples: logo, camera, leaf, mountain, letter a, circle, hand, phone, desk, cup, computer, car, building, tree, flower, etc.
 
-                    🔸 2. THEME CONCEPTS (মূল বিষয়):
-                    Main concept without repeating title words
-                    Examples: business strategy, fitness routine, nature scene, food culture, educational content, healthcare service, celebration event, travel experience, etc.
+                    🔸 2. THEME-BASED (বিষয়ভিত্তিক):
+                    Main subject or concept theme
+                    Examples: business, fitness, nature, food, education, medical, wedding, technology, travel, family, sport, art, music, etc.
 
-                    🔸 3. STYLE ATTRIBUTES (স্টাইল বৈশিষ্ট্য):
-                    Visual style without generic terms
-                    Examples: minimalist approach, flat graphic, 3d visualization, artistic rendering, vintage aesthetic, clean composition, textured surface, photorealistic image, etc.
+                    🔸 3. STYLE & DESIGN TYPE (স্টাইল ও ডিজাইন):
+                    Visual style and design approach
+                    Examples: modern, minimalist, flat, 3d, abstract, vintage, clean, grunge, realistic, artistic, professional, creative, etc.
 
-                    🔸 4. COLOR & MOOD (রঙ ও মেজাজ):
-                    Specific colors and emotional tone
-                    Examples: vibrant palette, monochrome scheme, warm lighting, cool atmosphere, golden tones, neutral background, gradient blend, high contrast, etc.
+                    🔸 4. COLOR OR BACKGROUND (রঙ ও ব্যাকগ্রাউন্ড):
+                    Dominant colors and background types
+                    Examples: colorful, black background, white background, blue, gold, transparent, gradient, bright, dark, monochrome, etc.
 
-                    🔸 5. FORMAT & MEDIUM (ফরম্যাট ও মাধ্যম):
-                    Technical format details
-                    Examples: vector artwork, digital illustration, background texture, pattern design, logo template, banner format, poster layout, social graphic, etc.
+                    🔸 5. FORMAT OR TYPE (ফরম্যাট ও ধরন):
+                    Technical format and media type
+                    Examples: vector, illustration, icon, template, background, pattern, flyer, logo design, poster, banner, etc.
 
-                    🔸 6. COMMERCIAL USE (বাণিজ্যিক ব্যবহার):
-                    How buyers will use it
-                    Examples: marketing campaign, brand identity, web design, print advertising, presentation slide, social media, mobile application, user interface, etc.
+                    🔸 6. USE OR PURPOSE (ব্যবহার ও উদ্দেশ্য):
+                    How and where it will be used
+                    Examples: branding, print, web, UI, UX, mobile, app, presentation, social media, marketing, advertising, etc.
 
-                    🔸 7. SPECIFIC DETAILS (নির্দিষ্ট বিবরণ):
-                    Unique elements visible
-                    Examples: geometric pattern, curved line, spiral motion, abstract form, linear structure, organic shape, angular design, flowing movement, etc.
+                    🔸 7. SHAPE OR FORM (আকৃতি ও ফর্ম):
+                    Geometric shapes and forms visible
+                    Examples: circle, square, triangle, line, curve, spiral, geometric, abstract shape, round, angular, organic, etc.
 
                     STRICT ANTI-STUFFING RULES:
                     ❌ NEVER repeat exact words from title in description or keywords
