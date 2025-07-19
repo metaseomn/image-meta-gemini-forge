@@ -301,53 +301,67 @@ const MetadataGenerator = () => {
           }
 
           const data = await response.json();
-          const text = data.candidates[0].content.parts[0].text;
           
-          // Extract JSON from response
+          if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0]) {
+            console.error('API Response structure invalid:', data);
+            throw new Error('API returned invalid response structure');
+          }
+          
+          const text = data.candidates[0].content.parts[0].text;
+          console.log('Raw AI response:', text);
+          
+          // Extract JSON from response with better error handling
           const jsonMatch = text.match(/\{[\s\S]*\}/);
           if (jsonMatch) {
-            const result = JSON.parse(jsonMatch[0]);
-            
-            // Triple validation: AI response + keyword cleaning + final check
-            result.keywords = validateAndCleanKeywords(result.keywords);
-            
-            // Final quality check - ensure no repetition missed
-            const finalKeywords = [];
-            const seenWords = new Set();
-            
-            for (const keyword of result.keywords) {
-              const words = keyword.toLowerCase().split(/[\s-_]+/);
-              let hasConflict = false;
+            try {
+              const result = JSON.parse(jsonMatch[0]);
               
-              for (const word of words) {
-                if (seenWords.has(word) && word.length > 2) {
-                  hasConflict = true;
-                  break;
+              // Triple validation: AI response + keyword cleaning + final check
+              result.keywords = validateAndCleanKeywords(result.keywords);
+              
+              // Final quality check - ensure no repetition missed
+              const finalKeywords = [];
+              const seenWords = new Set();
+              
+              for (const keyword of result.keywords) {
+                const words = keyword.toLowerCase().split(/[\s-_]+/);
+                let hasConflict = false;
+                
+                for (const word of words) {
+                  if (seenWords.has(word) && word.length > 2) {
+                    hasConflict = true;
+                    break;
+                  }
                 }
+                
+                if (!hasConflict) {
+                  words.forEach(word => word.length > 2 && seenWords.add(word));
+                  finalKeywords.push(keyword);
+                }
+                
+                if (finalKeywords.length >= 20) break;
               }
               
-              if (!hasConflict) {
-                words.forEach(word => word.length > 2 && seenWords.add(word));
-                finalKeywords.push(keyword);
+              result.keywords = finalKeywords;
+              
+              // Ensure topTenKeywords exists and has exactly 10 items from cleaned keywords
+              if (!result.topTenKeywords || result.topTenKeywords.length !== 10) {
+                result.topTenKeywords = result.keywords.slice(0, 10);
               }
               
-              if (finalKeywords.length >= 20) break;
+              // Log for debugging
+              console.log('Final keyword count:', result.keywords.length);
+              console.log('Keywords:', result.keywords);
+              
+              resolve(result);
+            } catch (parseError) {
+              console.error('JSON parsing error:', parseError);
+              console.error('Failed to parse JSON:', jsonMatch[0]);
+              throw new Error('Failed to parse AI response as JSON');
             }
-            
-            result.keywords = finalKeywords;
-            
-            // Ensure topTenKeywords exists and has exactly 10 items from cleaned keywords
-            if (!result.topTenKeywords || result.topTenKeywords.length !== 10) {
-              result.topTenKeywords = result.keywords.slice(0, 10);
-            }
-            
-            // Log for debugging
-            console.log('Final keyword count:', result.keywords.length);
-            console.log('Keywords:', result.keywords);
-            
-            resolve(result);
           } else {
-            throw new Error('Invalid response format');
+            console.error('No JSON found in AI response:', text);
+            throw new Error('AI response does not contain valid JSON');
           }
         } catch (error) {
           reject(error);
